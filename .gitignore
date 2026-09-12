@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Ficheiros temporários de trabalho
+_*.html
+*.tmp
