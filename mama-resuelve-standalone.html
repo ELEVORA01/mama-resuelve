@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Versión autónoma: todas las imágenes van incrustadas en este mismo archivo. -->
+<!-- Versión autónoma: todas las imágenes van incrustadas en este mismo archivo.
+     Los enlaces legales del pie son relativos: mantén los tres .html de políticas junto a este archivo. -->
 <title>Mamá Resuelve — 200 recetas de merienda para niños</title>
 <meta name="description" content="Más de 200 recetas de merienda para niños: rápidas, económicas y sin ultraprocesados. Descarga inmediata en PDF. Garantía de 15 días.">
 <meta name="theme-color" content="#C2542C">
@@ -605,6 +606,13 @@ section{ position:relative; }
 .foot__brand{ font-family:"Fraunces",serif; font-weight:900; font-size:1.25rem; letter-spacing:-.01em; }
 .foot p{ font-size:.86rem; opacity:.72; max-width:58ch; line-height:1.6; }
 .foot a{ color:var(--amber); text-decoration:underline; text-underline-offset:3px; }
+.foot__nav{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:.55em 1.5em;
+  font-size:.86rem; font-weight:600;
+  padding-block:.2em .3em;
+}
+.foot__nav a{ text-decoration-thickness:1px; }
+.foot__nav a:hover{ color:var(--cream); }
 
 /* ============ BARRA FIJA MÓVIL ============ */
 .stickybar{
@@ -1100,6 +1108,11 @@ body{ padding-bottom:0; }
 <footer class="foot">
   <div class="wrap foot__grid">
     <p class="foot__brand">Mamá Resuelve</p>
+    <nav class="foot__nav" aria-label="Información legal">
+      <a href="politica-privacidad.html">Política de Privacidad</a>
+      <a href="terminos-condiciones.html">Términos y Condiciones</a>
+      <a href="politica-reembolso.html">Reembolsos y Garantía</a>
+    </nav>
     <p>
       Mamá Resuelve — Guía digital. Este contenido no reemplaza la orientación de un pediatra
       o nutricionista infantil.
