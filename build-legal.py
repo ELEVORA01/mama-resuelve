@@ -2,6 +2,7 @@
 import io, os
 
 FECHA = "12 de septiembre de 2026"
+FECHA_PRIVACIDAD = "17 de septiembre de 2026"  # Píxel de Meta
 
 SHELL = """<!DOCTYPE html>
 <html lang="es-CO">
@@ -159,9 +160,10 @@ footer.foot nav a{{ color:var(--amber); }}
 </html>
 """
 
-def blk(n, title, html):
-    return ('    <section class="blk">\n'
-            '      <h2><span class="num">%02d</span> %s</h2>\n%s\n    </section>\n' % (n, title, html))
+def blk(n, title, html, anchor=None):
+    attr = ' id="%s"' % anchor if anchor else ''
+    return ('    <section class="blk"%s>\n'
+            '      <h2><span class="num">%02d</span> %s</h2>\n%s\n    </section>\n' % (attr, n, title, html))
 
 R = 'ELEVORA'
 MAIL = '<a href="mailto:elevora.online@gmail.com">elevora.online@gmail.com</a>'
@@ -180,9 +182,10 @@ priv += blk(1, "Responsable del tratamiento", """
 
 priv += blk(2, "Qué datos recoge este sitio", """
       <div class="callout">
-        <p><strong>Este sitio web no tiene formularios y no te pide ningún dato personal.</strong>
-        No hay registro, no hay suscripción por correo y no se instalan cookies de seguimiento
-        ni herramientas de analítica.</p>
+        <p><strong>Este sitio no tiene formularios y no te pide datos como tu nombre o tu correo.</strong>
+        No hay registro ni suscripción. Sí utiliza el <strong>Píxel de Meta</strong>, que registra
+        de forma automática información sobre tu visita para medir nuestros anuncios; se explica en
+        detalle en la <a href="#cookies">sección de cookies</a>.</p>
       </div>
       <p>Cuando decides comprar y haces clic en uno de los botones de pago, sales de este sitio
       y entras en la plataforma de <strong>Hotmart</strong>. Es allí, y no aquí, donde se recogen los
@@ -190,12 +193,15 @@ priv += blk(2, "Qué datos recoge este sitio", """
       Hotmart actúa como plataforma de pago y responsable de esos datos conforme a su propia
       política de privacidad.</p>
       <p>Por razones técnicas, al cargar cualquier página web tu navegador transmite al servidor
-      información como la dirección IP, el tipo de navegador y la fecha del acceso. Este sitio no
-      almacena ni analiza esa información.</p>""")
+      información como la dirección IP, el tipo de navegador y la fecha del acceso. El servidor
+      de este sitio no almacena ni analiza esa información.</p>""")
 
 priv += blk(3, "Servicios de terceros", """
-      <p>Para funcionar, esta página carga recursos desde dos servicios externos:</p>
+      <p>Esta página carga recursos o envía información a tres servicios externos:</p>
       <ul>
+        <li><strong>Meta Platforms</strong> (<code>connect.facebook.net</code> y <code>facebook.com</code>) —
+        el Píxel de Meta, que se carga en cuanto abres la página de venta. Ver la
+        <a href="#cookies">sección de cookies</a>.</li>
         <li><strong>Google Fonts</strong> (<code>fonts.googleapis.com</code> y <code>fonts.gstatic.com</code>) —
         entrega las tipografías. Al cargarlas, tu dirección IP es transmitida a servidores de Google.
         Google Fonts no instala cookies.</li>
@@ -205,7 +211,39 @@ priv += blk(3, "Servicios de terceros", """
       <p>El tratamiento que estos terceros hacen de la información se rige por sus propias políticas
       de privacidad, sobre las cuales el responsable no tiene control.</p>""")
 
-priv += blk(4, "Finalidad del tratamiento", """
+priv += blk(4, "Cookies y Píxel de Meta", """
+      <p>La página de venta utiliza el <strong>Píxel de Meta</strong>, una herramienta de Meta Platforms
+      (empresa propietaria de Facebook e Instagram). Se activa en cuanto se carga la página y, la
+      primera vez que la visitas, se muestra un aviso informándote de su uso.</p>
+      <p><strong>Qué información recoge.</strong> Tu dirección IP, el tipo de navegador y de dispositivo,
+      las páginas de este sitio que visitas, la página desde la que llegaste, las acciones que
+      realizas en ellas (por ejemplo, pulsar un botón) y un identificador almacenado en una cookie.
+      Si tienes una sesión abierta en Facebook o Instagram en el mismo navegador, Meta puede
+      relacionar esta información con tu cuenta.</p>
+      <p><strong>Qué cookies instala.</strong></p>
+      <ul>
+        <li><code>_fbp</code> — identifica tu navegador para medir visitas y anuncios. Duración: 90 días,
+        renovable con cada visita.</li>
+        <li><code>_fbc</code> — solo si llegas haciendo clic en un anuncio de Meta; registra ese clic.
+        Duración: 90 días.</li>
+      </ul>
+      <p><strong>Para qué se usa.</strong> Para saber cuántas personas llegan a la página desde nuestros
+      anuncios, medir su resultado y mostrar anuncios de Mamá Resuelve en Facebook e Instagram a
+      personas que ya visitaron el sitio o que tienen intereses similares. No se utiliza para
+      identificarte por tu nombre.</p>
+      <p><strong>Dónde se tratan los datos.</strong> La información se envía a servidores de Meta
+      ubicados fuera de Colombia, incluidos los Estados Unidos, y Meta la trata conforme a su
+      <a href="https://www.facebook.com/privacy/policy/" rel="noopener nofollow">Política de privacidad</a>.</p>
+      <div class="callout">
+        <p><strong>Cómo evitarlo o limitarlo:</strong> puedes bloquear o borrar las cookies desde la
+        configuración de tu navegador, usar la navegación privada o un navegador con protección
+        contra rastreo, y ajustar los anuncios que ves en las
+        <a href="https://www.facebook.com/adpreferences/" rel="noopener nofollow">preferencias de anuncios de Meta</a>
+        y en el Centro de cuentas, en <em>Tu actividad fuera de las tecnologías de Meta</em>.
+        Bloquear las cookies no te impide ver la página ni comprar.</p>
+      </div>""", anchor="cookies")
+
+priv += blk(5, "Finalidad del tratamiento", """
       <p>Los datos que llegues a entregar en el proceso de compra se usan exclusivamente para:</p>
       <ul>
         <li>Procesar el pago y entregarte el producto digital adquirido.</li>
@@ -213,16 +251,21 @@ priv += blk(4, "Finalidad del tratamiento", """
         <li>Atender solicitudes de soporte, garantía o reembolso.</li>
         <li>Cumplir obligaciones legales, contables y tributarias.</li>
       </ul>
-      <p>No se venden, alquilan ni comparten datos personales con terceros para fines publicitarios.</p>""")
+      <p>La información de navegación recogida por el Píxel de Meta se usa para medir y mejorar
+      nuestros anuncios, como se describe en la <a href="#cookies">sección de cookies</a>.</p>
+      <p>No se venden ni se alquilan datos personales. Fuera de lo que registra el Píxel de Meta, no se
+      comparte información con terceros con fines publicitarios.</p>""")
 
-priv += blk(5, "Tus derechos como titular", """
+priv += blk(6, "Tus derechos como titular", """
       <p>Conforme al artículo 8 de la Ley 1581 de 2012, en cualquier momento puedes:</p>
       <ul>
         <li><strong>Conocer</strong> los datos personales que existan sobre ti y cómo se están tratando.</li>
         <li><strong>Actualizar y rectificar</strong> los datos inexactos, incompletos o desactualizados.</li>
         <li><strong>Solicitar la supresión</strong> de tus datos cuando no exista un deber legal o contractual
         que obligue a conservarlos.</li>
-        <li><strong>Revocar la autorización</strong> otorgada para el tratamiento.</li>
+        <li><strong>Revocar la autorización</strong> otorgada para el tratamiento. En el caso del Píxel
+        de Meta, puedes hacerlo en cualquier momento bloqueando o borrando las cookies, como se
+        indica en la <a href="#cookies">sección de cookies</a>.</li>
         <li><strong>Presentar quejas</strong> ante la Superintendencia de Industria y Comercio (SIC).</li>
       </ul>
       <p>Para ejercer cualquiera de estos derechos, escribe a %s indicando tu nombre, el derecho que
@@ -230,21 +273,23 @@ priv += blk(5, "Tus derechos como titular", """
       máximo de <strong>diez (10) días hábiles</strong> y los reclamos en un máximo de
       <strong>quince (15) días hábiles</strong>, según lo previsto en la ley.</p>""" % MAIL)
 
-priv += blk(6, "Menores de edad", """
+priv += blk(7, "Menores de edad", """
       <p>Este sitio está dirigido a personas adultas, madres y cuidadores. No se recoge de forma
       consciente información personal de menores de edad. El producto trata sobre alimentación
-      infantil, pero los datos que se tratan son siempre los de la persona adulta que realiza la compra.</p>""")
+      infantil, pero los datos que se tratan son siempre los de la persona adulta que visita el
+      sitio o realiza la compra.</p>""")
 
-priv += blk(7, "Seguridad y conservación", """
+priv += blk(8, "Seguridad y conservación", """
       <p>Los datos de la compra se conservan en la infraestructura de Hotmart durante el tiempo
       necesario para cumplir las finalidades descritas y las obligaciones legales aplicables,
-      bajo las medidas de seguridad técnicas y administrativas de esa plataforma.</p>""")
+      bajo las medidas de seguridad técnicas y administrativas de esa plataforma.</p>
+      <p>La información recogida por el Píxel de Meta se conserva en los sistemas de Meta durante los
+      plazos que establece su propia política de privacidad.</p>""")
 
-priv += blk(8, "Cambios en esta política", """
+priv += blk(9, "Cambios en esta política", """
       <p>Esta política puede actualizarse para reflejar cambios legales o en el funcionamiento del
-      sitio. La fecha de la última actualización aparece al inicio del documento. Si en el futuro se
-      añaden herramientas de analítica o de publicidad (por ejemplo, píxeles de seguimiento), esta
-      política se actualizará y se informará de ello antes de activarlas.</p>""")
+      sitio, por ejemplo si se incorporan otras herramientas de medición o publicidad. La fecha de
+      la última actualización aparece al inicio del documento.</p>""")
 
 # ───────────────────────── TÉRMINOS ─────────────────────────
 ter = ""
@@ -395,7 +440,7 @@ reem += blk(6, "Problemas con el acceso o la descarga", """
 
 PAGES = [
     ("politica-privacidad.html", "Política de Privacidad",
-     "Política de tratamiento de datos personales de Mamá Resuelve, conforme a la Ley 1581 de 2012 de Colombia.", priv),
+     "Política de tratamiento de datos personales y de cookies (Píxel de Meta) de Mamá Resuelve, conforme a la Ley 1581 de 2012 de Colombia.", priv),
     ("terminos-condiciones.html", "Términos y Condiciones",
      "Términos y condiciones de uso y de compra de la guía digital Mamá Resuelve.", ter),
     ("politica-reembolso.html", "Reembolsos y Garantía",
@@ -403,6 +448,7 @@ PAGES = [
 ]
 
 for fn, title, desc, body in PAGES:
-    html = SHELL.format(title=title, desc=desc, fecha=FECHA, body=body.rstrip())
+    fecha = FECHA_PRIVACIDAD if fn == "politica-privacidad.html" else FECHA
+    html = SHELL.format(title=title, desc=desc, fecha=fecha, body=body.rstrip())
     io.open(fn, "w", encoding="utf-8").write(html)
     print("escrito: %-30s %6.1f KB" % (fn, os.path.getsize(fn)/1024.0))

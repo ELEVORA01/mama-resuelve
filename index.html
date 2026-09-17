@@ -657,9 +657,49 @@ section{ position:relative; }
 .stickybar__txt span{ display:block; font-size:.75rem; color:var(--ink-soft); font-weight:600; }
 .stickybar .btn{ padding:.8em 1.15em; font-size:.92rem; box-shadow:var(--pop-sm); flex:none; }
 @media (min-width:880px){ .stickybar{ display:none; } }
+
+/* ============ AVISO DE COOKIES ============ */
+.cookie{
+  position:fixed; z-index:95; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom));
+  display:flex; align-items:center; gap:.75em;
+  background:var(--paper); color:var(--ink);
+  border:var(--line); border-radius:14px; box-shadow:var(--pop-sm);
+  padding:.7em .8em .7em 1em;
+  transition:bottom .32s cubic-bezier(.2,.8,.2,1);
+}
+.cookie[hidden]{ display:none; }
+.cookie__txt{ flex:1 1 auto; min-width:0; margin:0; font-size:.78rem; line-height:1.42; font-weight:500; }
+.cookie__ico{ margin-right:.35em; }
+.cookie__txt a{ color:var(--terra-deep); font-weight:700; text-underline-offset:2px; white-space:nowrap; }
+.cookie__ok{
+  flex:none; cursor:pointer;
+  font:inherit; font-size:.88rem; font-weight:800;
+  background:var(--ink); color:var(--cream);
+  border:2px solid var(--ink); border-radius:999px; padding:.5em 1.1em;
+}
+.cookie__ok:hover{ background:var(--terra-deep); border-color:var(--terra-deep); }
+.cookie__ok:focus-visible{ outline:3px solid var(--terra); outline-offset:3px; }
+/* en móvil sube por encima de la barra fija cuando esta aparece */
+@media (max-width:879px){ body.bar-up .cookie{ bottom:calc(var(--barH, 76px) + 10px); } }
+@media (min-width:880px){ .cookie{ left:auto; right:22px; bottom:22px; max-width:440px; } }
+@media (prefers-reduced-motion: reduce){ .cookie{ transition:none; } }
 body{ padding-bottom:0; }
 @media (max-width:879px){ body.has-bar{ padding-bottom:calc(var(--barH, 76px) + 10px); } }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1636233881206384');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -756,6 +796,10 @@ body{ padding-bottom:0; }
 </script>
 </head>
 <body>
+<!-- Meta Pixel Code (sin JavaScript) -->
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=1636233881206384&ev=PageView&noscript=1"
+/></noscript>
 
 <!-- ============ 1. BARRA DE URGENCIA ============ -->
 <div class="urgency" role="note">
@@ -1242,6 +1286,16 @@ body{ padding-bottom:0; }
   </div>
 </footer>
 
+<!-- ============ AVISO DE COOKIES ============ -->
+<div class="cookie" id="cookie" role="region" aria-label="Aviso de cookies" hidden>
+  <p class="cookie__txt">
+    <span class="cookie__ico" aria-hidden="true">🍪</span>Usamos cookies de Meta para medir nuestros
+    anuncios. Al seguir navegando, las aceptas.
+    <a href="politica-privacidad.html#cookies">Más información</a>
+  </p>
+  <button type="button" class="cookie__ok" id="cookie-ok">Entendido</button>
+</div>
+
 <!-- ============ BARRA FIJA (móvil) ============ -->
 <div class="stickybar" id="stickybar">
   <div class="stickybar__txt">
@@ -1298,6 +1352,19 @@ body{ padding-bottom:0; }
     }
   } catch (err) { /* navegador sin URLSearchParams: se queda el src=landing del HTML */ }
 
+  /* --- aviso de cookies: se muestra hasta que la persona pulsa "Entendido" --- */
+  var notice = document.getElementById("cookie");
+  var NOTICE_KEY = "mr-aviso-cookies";
+  var seen = false;
+  try { seen = window.localStorage.getItem(NOTICE_KEY) === "1"; } catch (err) { /* almacenamiento bloqueado */ }
+  if (notice && !seen) {
+    notice.hidden = false;
+    document.getElementById("cookie-ok").addEventListener("click", function () {
+      notice.hidden = true;
+      try { window.localStorage.setItem(NOTICE_KEY, "1"); } catch (err) { /* se cierra solo en esta visita */ }
+    });
+  }
+
   /* --- barra fija: aparece al pasar el hero, se esconde sobre los precios --- */
   var bar = document.getElementById("stickybar");
   var hero = document.querySelector(".hero");
@@ -1319,6 +1386,7 @@ body{ padding-bottom:0; }
       onPricing = r.top < window.innerHeight * 0.9 && r.bottom > 0;
     }
     bar.classList.toggle("is-up", pastHero && !onPricing);
+    document.body.classList.toggle("bar-up", pastHero && !onPricing);
   }
 
   var ticking = false;

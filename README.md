@@ -102,3 +102,17 @@ Depois, correr `python3 build-standalone.py`.
 grep -rl "elevora01.github.io" --include="*.html" --include="*.txt" --include="*.xml" .
 ```
 
+## Meta Pixel
+
+- ID `1636233881206384`, instalado só no `index.html` (a página onde os anúncios aterram):
+  o código base do Meta no `<head>` e a parte `<noscript>` no início do `<body>`.
+- **Sempre activo**, por decisão do dono: dispara `PageView` para todos os visitantes ao
+  abrir a página. Um aviso no fundo informa do uso de cookies; ao carregar em "Entendido"
+  fica guardado em `localStorage` (`mr-aviso-cookies`) e não volta a aparecer.
+- A secção 4 da Política de Privacidade (`#cookies`) descreve o píxel, os cookies `_fbp`
+  e `_fbc`, a transferência para servidores do Meta e como bloquear.
+- `InitiateCheckout` e `Purchase` acontecem no checkout, que é da Hotmart: configuram-se
+  com o mesmo ID no painel da Hotmart, não aqui. Não disparar esses eventos a partir da
+  landing, senão ficam contados em dobro.
+- Se um dia se adicionar outra ferramenta (Google Analytics, TikTok…), actualizar a
+  política em `build-legal.py` antes de publicar.
