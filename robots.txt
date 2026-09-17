@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://elevora01.github.io/mama-resuelve/sitemap.xml

@@ -12,6 +12,9 @@ SHELL = """<!DOCTYPE html>
 <meta name="description" content="{desc}">
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#C2542C">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">

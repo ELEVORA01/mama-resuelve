@@ -3,14 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Versión autónoma: todas las imágenes van incrustadas en este mismo archivo.
-     Los enlaces legales del pie son relativos: mantén los tres .html de políticas junto a este archivo. -->
+<script>
+  /* Los bloques solo se ocultan (para animarlos) si hay JavaScript.
+     Si el script principal no llega a ejecutarse, a los 2,5 s se muestran igual. */
+  document.documentElement.classList.add("js");
+  setTimeout(function () {
+    if (!window.__mrReady) document.documentElement.classList.remove("js");
+  }, 2500);
+</script>
+<!-- Versión autónoma generada por build-standalone.py: todas las imágenes van incrustadas.
+     Los enlaces legales del pie son relativos: mantén los .html de políticas junto a este archivo. -->
 <title>Mamá Resuelve — 200 recetas de merienda para niños</title>
 <meta name="description" content="Más de 200 recetas de merienda para niños: rápidas, económicas y sin ultraprocesados. Descarga inmediata en PDF. Garantía de 15 días.">
 <meta name="theme-color" content="#C2542C">
 <meta property="og:title" content="Mamá Resuelve — 200 recetas de merienda para niños">
 <meta property="og:description" content="Se acabó la pelea de todos los días por la merienda de tus hijos.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Mamá Resuelve">
+<meta property="og:locale" content="es_CO">
+<!-- URL pública: al pasar al dominio definitivo, cambiar en las 5 líneas con elevora01.github.io,
+     en el JSON-LD de más abajo, en robots.txt, sitemap.xml y 404.html -->
+<link rel="canonical" href="https://elevora01.github.io/mama-resuelve/">
+<meta property="og:url" content="https://elevora01.github.io/mama-resuelve/">
+<meta property="og:image" content="https://elevora01.github.io/mama-resuelve/assets/og-mama-resuelve.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="La caja de la guía Mamá Resuelve junto a los 5 bonos incluidos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://elevora01.github.io/mama-resuelve/assets/og-mama-resuelve.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -147,15 +170,15 @@ section{ position:relative; }
 .note > span{ display:inline-flex; align-items:center; gap:.4em; }
 .note b{ color:var(--ink); font-weight:700; }
 
-/* animación de entrada al hacer scroll */
-.reveal{ opacity:0; transform:translateY(22px); }
-.reveal.is-in{
+/* animación de entrada al hacer scroll — solo se oculta si hay JS (clase .js en <html>) */
+.js .reveal{ opacity:0; transform:translateY(22px); }
+.js .reveal.is-in{
   opacity:1; transform:none;
   transition:opacity .72s cubic-bezier(.2,.75,.25,1), transform .72s cubic-bezier(.2,.75,.25,1);
   transition-delay:var(--d, 0ms);
 }
 @media (prefers-reduced-motion: reduce){
-  .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+  .js .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
 }
 
 /* ============ 1. BARRA DE URGENCIA ============ */
@@ -613,6 +636,7 @@ section{ position:relative; }
 }
 .foot__nav a{ text-decoration-thickness:1px; }
 .foot__nav a:hover{ color:var(--cream); }
+.foot__contact a{ overflow-wrap:anywhere; font-weight:600; }
 
 /* ============ BARRA FIJA MÓVIL ============ */
 .stickybar{
@@ -637,6 +661,100 @@ section{ position:relative; }
 body{ padding-bottom:0; }
 @media (max-width:879px){ body.has-bar{ padding-bottom:calc(var(--barH, 76px) + 10px); } }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Mamá Resuelve — Guía de 200 recetas de merienda para niños",
+      "description": "Más de 200 recetas de merienda para niños en PDF, en 7 categorías: rápidas, económicas y sin ultraprocesados. El Plan Completo incluye 5 bonos.",
+      "image": "https://elevora01.github.io/mama-resuelve/assets/og-mama-resuelve.jpg",
+      "brand": {
+        "@type": "Brand",
+        "name": "Mamá Resuelve"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Plan Básico",
+          "price": "5.90",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://elevora01.github.io/mama-resuelve/#pricing",
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "CO",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 15,
+            "returnFees": "https://schema.org/FreeReturn"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Plan Completo",
+          "price": "11.90",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://elevora01.github.io/mama-resuelve/#pricing",
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "CO",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 15,
+            "returnFees": "https://schema.org/FreeReturn"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cómo recibo la guía después de comprar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apenas se confirma el pago, Hotmart te envía un correo con el acceso. Descargas los PDF al instante y los abres en el celular, la tablet o el computador. No se envía nada físico y no hay que esperar ningún envío."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Las recetas sirven para bebés desde qué edad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cada receta indica la edad sugerida: hay opciones desde los 6 meses y otras pensadas para niños más grandes. Aun así, en menores de 2 años consulta siempre con tu pediatra antes de introducir un alimento nuevo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué pasa si mi hijo tiene alergias?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cada receta señala si contiene gluten, lácteos, huevo, maní o frutos secos. Además hay una sección completa sin gluten y sin lácteos, y el Plan Completo incluye un bono de sustituciones seguras. Si tu hijo tiene una alergia diagnosticada, revisa cada ingrediente con su pediatra antes de preparar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Puedo pedir la devolución si no me convence?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Tienes 15 días desde la compra para pedir el reembolso completo directamente por Hotmart. Sin preguntas complicadas y sin tener que justificar nada."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Los 5 bonos vienen con el Plan Básico?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, los 5 bonos están incluidos únicamente en el Plan Completo."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -961,7 +1079,7 @@ body{ padding-bottom:0; }
           <li class="is-off"><span class="tick tick--off" aria-hidden="true">×</span> <span class="lbl">Sin los 5 bonos</span></li>
         </ul>
 
-        <a class="btn btn--ghost btn--block" href="https://pay.hotmart.com/O107566662Y" rel="noopener">Elegir Básico</a>
+        <a class="btn btn--ghost btn--block" href="https://pay.hotmart.com/O107566662Y?src=landing" rel="noopener">Elegir Básico</a>
       </article>
 
       <!-- Plan Completo -->
@@ -981,7 +1099,7 @@ body{ padding-bottom:0; }
           <li><span class="tick" aria-hidden="true">✓</span> <span class="lbl"><span style="white-space:nowrap">Bono #5 —</span>&nbsp;<strong>Alimentos Nuevos Sin Lucha</strong></span></li>
         </ul>
 
-        <a class="btn btn--block" href="https://pay.hotmart.com/I107569605E" rel="noopener">Elegir Completo <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--block" href="https://pay.hotmart.com/I107569605E?src=landing" rel="noopener">Elegir Completo <span class="btn__arrow" aria-hidden="true">→</span></a>
       </article>
 
     </div>
@@ -1117,7 +1235,11 @@ body{ padding-bottom:0; }
       Mamá Resuelve — Guía digital. Este contenido no reemplaza la orientación de un pediatra
       o nutricionista infantil.
     </p>
-    <p style="opacity:.55; font-size:.8rem">Pagos procesados de forma segura por Hotmart.</p>
+    <p class="foot__contact">
+      ¿Dudas o problemas con tu compra? Escríbenos a
+      <a href="mailto:elevora.online@gmail.com">elevora.online@gmail.com</a>
+    </p>
+    <p style="opacity:.55; font-size:.8rem">© 2026 ELEVORA · Pagos procesados de forma segura por Hotmart.</p>
   </div>
 </footer>
 
@@ -1158,6 +1280,24 @@ body{ padding-bottom:0; }
       });
     });
   }
+  window.__mrReady = true;
+
+  /* --- origen de la venta: pasa src / sck / utm_* de la URL al checkout de Hotmart --- */
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    var pass = {};
+    ["src", "sck", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) {
+      if (qs.get(k)) pass[k] = qs.get(k);
+    });
+    if (!pass.src && pass.utm_source) pass.src = pass.utm_source;
+    if (Object.keys(pass).length) {
+      document.querySelectorAll('a[href^="https://pay.hotmart.com/"]').forEach(function (a) {
+        var u = new URL(a.href);
+        Object.keys(pass).forEach(function (k) { u.searchParams.set(k, pass[k]); });
+        a.href = u.toString();
+      });
+    }
+  } catch (err) { /* navegador sin URLSearchParams: se queda el src=landing del HTML */ }
 
   /* --- barra fija: aparece al pasar el hero, se esconde sobre los precios --- */
   var bar = document.getElementById("stickybar");

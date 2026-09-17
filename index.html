@@ -3,12 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  /* Los bloques solo se ocultan (para animarlos) si hay JavaScript.
+     Si el script principal no llega a ejecutarse, a los 2,5 s se muestran igual. */
+  document.documentElement.classList.add("js");
+  setTimeout(function () {
+    if (!window.__mrReady) document.documentElement.classList.remove("js");
+  }, 2500);
+</script>
 <title>Mamá Resuelve — 200 recetas de merienda para niños</title>
 <meta name="description" content="Más de 200 recetas de merienda para niños: rápidas, económicas y sin ultraprocesados. Descarga inmediata en PDF. Garantía de 15 días.">
 <meta name="theme-color" content="#C2542C">
 <meta property="og:title" content="Mamá Resuelve — 200 recetas de merienda para niños">
 <meta property="og:description" content="Se acabó la pelea de todos los días por la merienda de tus hijos.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Mamá Resuelve">
+<meta property="og:locale" content="es_CO">
+<!-- URL pública: al pasar al dominio definitivo, cambiar en las 5 líneas con elevora01.github.io,
+     en el JSON-LD de más abajo, en robots.txt, sitemap.xml y 404.html -->
+<link rel="canonical" href="https://elevora01.github.io/mama-resuelve/">
+<meta property="og:url" content="https://elevora01.github.io/mama-resuelve/">
+<meta property="og:image" content="https://elevora01.github.io/mama-resuelve/assets/og-mama-resuelve.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="La caja de la guía Mamá Resuelve junto a los 5 bonos incluidos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://elevora01.github.io/mama-resuelve/assets/og-mama-resuelve.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -145,15 +169,15 @@ section{ position:relative; }
 .note > span{ display:inline-flex; align-items:center; gap:.4em; }
 .note b{ color:var(--ink); font-weight:700; }
 
-/* animación de entrada al hacer scroll */
-.reveal{ opacity:0; transform:translateY(22px); }
-.reveal.is-in{
+/* animación de entrada al hacer scroll — solo se oculta si hay JS (clase .js en <html>) */
+.js .reveal{ opacity:0; transform:translateY(22px); }
+.js .reveal.is-in{
   opacity:1; transform:none;
   transition:opacity .72s cubic-bezier(.2,.75,.25,1), transform .72s cubic-bezier(.2,.75,.25,1);
   transition-delay:var(--d, 0ms);
 }
 @media (prefers-reduced-motion: reduce){
-  .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+  .js .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
 }
 
 /* ============ 1. BARRA DE URGENCIA ============ */
@@ -611,6 +635,7 @@ section{ position:relative; }
 }
 .foot__nav a{ text-decoration-thickness:1px; }
 .foot__nav a:hover{ color:var(--cream); }
+.foot__contact a{ overflow-wrap:anywhere; font-weight:600; }
 
 /* ============ BARRA FIJA MÓVIL ============ */
 .stickybar{
@@ -635,6 +660,100 @@ section{ position:relative; }
 body{ padding-bottom:0; }
 @media (max-width:879px){ body.has-bar{ padding-bottom:calc(var(--barH, 76px) + 10px); } }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Mamá Resuelve — Guía de 200 recetas de merienda para niños",
+      "description": "Más de 200 recetas de merienda para niños en PDF, en 7 categorías: rápidas, económicas y sin ultraprocesados. El Plan Completo incluye 5 bonos.",
+      "image": "https://elevora01.github.io/mama-resuelve/assets/og-mama-resuelve.jpg",
+      "brand": {
+        "@type": "Brand",
+        "name": "Mamá Resuelve"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Plan Básico",
+          "price": "5.90",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://elevora01.github.io/mama-resuelve/#pricing",
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "CO",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 15,
+            "returnFees": "https://schema.org/FreeReturn"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Plan Completo",
+          "price": "11.90",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://elevora01.github.io/mama-resuelve/#pricing",
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "CO",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 15,
+            "returnFees": "https://schema.org/FreeReturn"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cómo recibo la guía después de comprar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apenas se confirma el pago, Hotmart te envía un correo con el acceso. Descargas los PDF al instante y los abres en el celular, la tablet o el computador. No se envía nada físico y no hay que esperar ningún envío."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Las recetas sirven para bebés desde qué edad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cada receta indica la edad sugerida: hay opciones desde los 6 meses y otras pensadas para niños más grandes. Aun así, en menores de 2 años consulta siempre con tu pediatra antes de introducir un alimento nuevo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué pasa si mi hijo tiene alergias?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cada receta señala si contiene gluten, lácteos, huevo, maní o frutos secos. Además hay una sección completa sin gluten y sin lácteos, y el Plan Completo incluye un bono de sustituciones seguras. Si tu hijo tiene una alergia diagnosticada, revisa cada ingrediente con su pediatra antes de preparar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Puedo pedir la devolución si no me convence?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Tienes 15 días desde la compra para pedir el reembolso completo directamente por Hotmart. Sin preguntas complicadas y sin tener que justificar nada."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Los 5 bonos vienen con el Plan Básico?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, los 5 bonos están incluidos únicamente en el Plan Completo."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -959,7 +1078,7 @@ body{ padding-bottom:0; }
           <li class="is-off"><span class="tick tick--off" aria-hidden="true">×</span> <span class="lbl">Sin los 5 bonos</span></li>
         </ul>
 
-        <a class="btn btn--ghost btn--block" href="https://pay.hotmart.com/O107566662Y" rel="noopener">Elegir Básico</a>
+        <a class="btn btn--ghost btn--block" href="https://pay.hotmart.com/O107566662Y?src=landing" rel="noopener">Elegir Básico</a>
       </article>
 
       <!-- Plan Completo -->
@@ -979,7 +1098,7 @@ body{ padding-bottom:0; }
           <li><span class="tick" aria-hidden="true">✓</span> <span class="lbl"><span style="white-space:nowrap">Bono #5 —</span>&nbsp;<strong>Alimentos Nuevos Sin Lucha</strong></span></li>
         </ul>
 
-        <a class="btn btn--block" href="https://pay.hotmart.com/I107569605E" rel="noopener">Elegir Completo <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--block" href="https://pay.hotmart.com/I107569605E?src=landing" rel="noopener">Elegir Completo <span class="btn__arrow" aria-hidden="true">→</span></a>
       </article>
 
     </div>
@@ -1115,7 +1234,11 @@ body{ padding-bottom:0; }
       Mamá Resuelve — Guía digital. Este contenido no reemplaza la orientación de un pediatra
       o nutricionista infantil.
     </p>
-    <p style="opacity:.55; font-size:.8rem">Pagos procesados de forma segura por Hotmart.</p>
+    <p class="foot__contact">
+      ¿Dudas o problemas con tu compra? Escríbenos a
+      <a href="mailto:elevora.online@gmail.com">elevora.online@gmail.com</a>
+    </p>
+    <p style="opacity:.55; font-size:.8rem">© 2026 ELEVORA · Pagos procesados de forma segura por Hotmart.</p>
   </div>
 </footer>
 
@@ -1156,6 +1279,24 @@ body{ padding-bottom:0; }
       });
     });
   }
+  window.__mrReady = true;
+
+  /* --- origen de la venta: pasa src / sck / utm_* de la URL al checkout de Hotmart --- */
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    var pass = {};
+    ["src", "sck", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) {
+      if (qs.get(k)) pass[k] = qs.get(k);
+    });
+    if (!pass.src && pass.utm_source) pass.src = pass.utm_source;
+    if (Object.keys(pass).length) {
+      document.querySelectorAll('a[href^="https://pay.hotmart.com/"]').forEach(function (a) {
+        var u = new URL(a.href);
+        Object.keys(pass).forEach(function (k) { u.searchParams.set(k, pass[k]); });
+        a.href = u.toString();
+      });
+    }
+  } catch (err) { /* navegador sin URLSearchParams: se queda el src=landing del HTML */ }
 
   /* --- barra fija: aparece al pasar el hero, se esconde sobre los precios --- */
   var bar = document.getElementById("stickybar");
