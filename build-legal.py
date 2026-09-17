@@ -220,6 +220,10 @@ priv += blk(4, "Cookies y Píxel de Meta", """
       realizas en ellas (por ejemplo, pulsar un botón) y un identificador almacenado en una cookie.
       Si tienes una sesión abierta en Facebook o Instagram en el mismo navegador, Meta puede
       relacionar esta información con tu cuenta.</p>
+      <p>Si haces clic en un botón de compra, el identificador del anuncio del que llegaste (si lo hay)
+      se pasa a la página de pago. Allí, en las páginas de <strong>Hotmart</strong>, el mismo píxel registra
+      cuándo inicias el proceso de pago y cuándo se confirma una compra, incluido el producto
+      adquirido, para medir las ventas que generan nuestros anuncios.</p>
       <p><strong>Qué cookies instala.</strong></p>
       <ul>
         <li><code>_fbp</code> — identifica tu navegador para medir visitas y anuncios. Duración: 90 días,

@@ -1335,11 +1335,13 @@ src="https://www.facebook.com/tr?id=1636233881206384&ev=PageView&noscript=1"
   }
   window.__mrReady = true;
 
-  /* --- origen de la venta: pasa src / sck / utm_* de la URL al checkout de Hotmart --- */
+  /* --- origen de la venta: pasa src / sck / utm_* / fbclid de la URL al checkout de Hotmart.
+         fbclid es el identificador del clic en un anuncio de Meta: sin él, el píxel del checkout
+         no puede atribuir el InitiateCheckout y el Purchase a ese anuncio. --- */
   try {
     var qs = new URLSearchParams(window.location.search);
     var pass = {};
-    ["src", "sck", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) {
+    ["src", "sck", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid"].forEach(function (k) {
       if (qs.get(k)) pass[k] = qs.get(k);
     });
     if (!pass.src && pass.utm_source) pass.src = pass.utm_source;

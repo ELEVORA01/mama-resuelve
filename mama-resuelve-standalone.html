@@ -662,18 +662,18 @@ section{ position:relative; }
 /* ============ AVISO DE COOKIES ============ */
 .cookie{
   position:fixed; z-index:95; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom));
-  display:flex; align-items:flex-end; gap:.5em .9em; flex-wrap:wrap;
+  display:flex; align-items:center; gap:.75em;
   background:var(--paper); color:var(--ink);
   border:var(--line); border-radius:14px; box-shadow:var(--pop-sm);
   padding:.7em .8em .7em 1em;
   transition:bottom .32s cubic-bezier(.2,.8,.2,1);
 }
 .cookie[hidden]{ display:none; }
-.cookie__txt{ flex:1 1 230px; margin:0; font-size:.8rem; line-height:1.45; font-weight:500; }
+.cookie__txt{ flex:1 1 auto; min-width:0; margin:0; font-size:.78rem; line-height:1.42; font-weight:500; }
 .cookie__ico{ margin-right:.35em; }
 .cookie__txt a{ color:var(--terra-deep); font-weight:700; text-underline-offset:2px; white-space:nowrap; }
 .cookie__ok{
-  flex:none; margin-left:auto; cursor:pointer;
+  flex:none; cursor:pointer;
   font:inherit; font-size:.88rem; font-weight:800;
   background:var(--ink); color:var(--cream);
   border:2px solid var(--ink); border-radius:999px; padding:.5em 1.1em;
@@ -1290,8 +1290,8 @@ src="https://www.facebook.com/tr?id=1636233881206384&ev=PageView&noscript=1"
 <!-- ============ AVISO DE COOKIES ============ -->
 <div class="cookie" id="cookie" role="region" aria-label="Aviso de cookies" hidden>
   <p class="cookie__txt">
-    <span class="cookie__ico" aria-hidden="true">🍪</span>Usamos cookies de Meta (Facebook e Instagram)
-    para medir nuestros anuncios. Al seguir navegando, las aceptas.
+    <span class="cookie__ico" aria-hidden="true">🍪</span>Usamos cookies de Meta para medir nuestros
+    anuncios. Al seguir navegando, las aceptas.
     <a href="politica-privacidad.html#cookies">Más información</a>
   </p>
   <button type="button" class="cookie__ok" id="cookie-ok">Entendido</button>
@@ -1336,11 +1336,13 @@ src="https://www.facebook.com/tr?id=1636233881206384&ev=PageView&noscript=1"
   }
   window.__mrReady = true;
 
-  /* --- origen de la venta: pasa src / sck / utm_* de la URL al checkout de Hotmart --- */
+  /* --- origen de la venta: pasa src / sck / utm_* / fbclid de la URL al checkout de Hotmart.
+         fbclid es el identificador del clic en un anuncio de Meta: sin él, el píxel del checkout
+         no puede atribuir el InitiateCheckout y el Purchase a ese anuncio. --- */
   try {
     var qs = new URLSearchParams(window.location.search);
     var pass = {};
-    ["src", "sck", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) {
+    ["src", "sck", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid"].forEach(function (k) {
       if (qs.get(k)) pass[k] = qs.get(k);
     });
     if (!pass.src && pass.utm_source) pass.src = pass.utm_source;

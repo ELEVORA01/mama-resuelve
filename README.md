@@ -83,8 +83,12 @@ tudo fica visível. Sem JS, a página lê-se inteira.
 
 Os botões dos planos levam `?src=landing` por omissão. Se a página for aberta com
 parâmetros — por exemplo `.../?utm_source=instagram&utm_campaign=lanzamiento` — o
-script passa `src`, `sck` e os `utm_*` para o checkout, e a origem aparece nos
-relatórios da Hotmart. Sem `src` explícito, usa-se o `utm_source`.
+script passa `src`, `sck`, os `utm_*` e o `fbclid` para o checkout, e a origem aparece
+nos relatórios da Hotmart. Sem `src` explícito, usa-se o `utm_source`.
+
+O `fbclid` é o identificador do clique num anúncio do Meta. Sem ele, o píxel do checkout
+cria um visitante novo e não consegue ligar o `InitiateCheckout` e o `Purchase` ao anúncio;
+com ele, cria o cookie `_fbc` e a venda fica atribuída.
 
 ## Ao mudar de domínio
 
@@ -111,8 +115,10 @@ grep -rl "elevora01.github.io" --include="*.html" --include="*.txt" --include="*
   fica guardado em `localStorage` (`mr-aviso-cookies`) e não volta a aparecer.
 - A secção 4 da Política de Privacidade (`#cookies`) descreve o píxel, os cookies `_fbp`
   e `_fbc`, a transferência para servidores do Meta e como bloquear.
-- `InitiateCheckout` e `Purchase` acontecem no checkout, que é da Hotmart: configuram-se
-  com o mesmo ID no painel da Hotmart, não aqui. Não disparar esses eventos a partir da
-  landing, senão ficam contados em dobro.
+- `InitiateCheckout` e `Purchase` vêm da **Hotmart**, onde o píxel está ligado nos dois
+  produtos — Básico `product_id 8499985` e Completo `product_id 8501421`. Verificado a
+  17/09/2026: ao abrir cada checkout saem `PageView` e `InitiateCheckout` com este ID, e o
+  `fbclid` vindo da landing gera `_fbc`. O `Purchase` é enviado na confirmação da compra.
+  Não disparar estes eventos a partir da landing, senão ficam contados em dobro.
 - Se um dia se adicionar outra ferramenta (Google Analytics, TikTok…), actualizar a
   política em `build-legal.py` antes de publicar.
