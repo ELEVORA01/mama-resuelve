@@ -4,8 +4,24 @@
     {
       "name": "elevora",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4317"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4317"
+      ],
       "port": 4317
+    },
+    {
+      "name": "pacote-wordpress",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4318",
+        "--directory",
+        "dist"
+      ],
+      "port": 4318
     }
   ]
 }

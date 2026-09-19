@@ -90,35 +90,29 @@ O `fbclid` é o identificador do clique num anúncio do Meta. Sem ele, o píxel 
 cria um visitante novo e não consegue ligar o `InitiateCheckout` e o `Purchase` ao anúncio;
 com ele, cria o cookie `_fbc` e a venda fica atribuída.
 
-## Ao mudar de domínio
+## Endereço público
 
-A URL pública `https://elevora01.github.io/mama-resuelve/` está escrita por extenso
-onde tem de ser absoluta. Ao passar para o domínio definitivo, trocar em:
+O endereço oficial é `https://elevora.online/mama-resuelve/` — está escrito por extenso
+no `canonical`, `og:url`, `og:image`, `twitter:image`, no JSON-LD, no `sitemap.xml`, no
+`robots.txt` e no `404.html`. A cópia no GitHub Pages continua a funcionar como
+pré-visualização, mas aponta o `canonical` para o domínio, para o Google não a tratar
+como a versão principal.
 
-- `index.html` — `canonical`, `og:url`, `og:image`, `twitter:image` e o bloco JSON-LD
-- `robots.txt` e `sitemap.xml`
-- `404.html` — favicon e botão de voltar (são absolutos de propósito: a 404 é servida
-  em qualquer caminho partido)
-
-Depois, correr `python3 build-standalone.py`.
+Se o endereço mudar outra vez:
 
 ```bash
-grep -rl "elevora01.github.io" --include="*.html" --include="*.txt" --include="*.xml" .
+python3 build-wordpress.py https://novo-dominio.com/caminho/
 ```
 
-## Meta Pixel
+## Pacote para o alojamento
 
-- ID `1636233881206384`, instalado só no `index.html` (a página onde os anúncios aterram):
-  o código base do Meta no `<head>` e a parte `<noscript>` no início do `<body>`.
-- **Sempre activo**, por decisão do dono: dispara `PageView` para todos os visitantes ao
-  abrir a página. Um aviso no fundo informa do uso de cookies; ao carregar em "Entendido"
-  fica guardado em `localStorage` (`mr-aviso-cookies`) e não volta a aparecer.
-- A secção 4 da Política de Privacidade (`#cookies`) descreve o píxel, os cookies `_fbp`
-  e `_fbc`, a transferência para servidores do Meta e como bloquear.
-- `InitiateCheckout` e `Purchase` vêm da **Hotmart**, onde o píxel está ligado nos dois
-  produtos — Básico `product_id 8499985` e Completo `product_id 8501421`. Verificado a
-  17/09/2026: ao abrir cada checkout saem `PageView` e `InitiateCheckout` com este ID, e o
-  `fbclid` vindo da landing gera `_fbc`. O `Purchase` é enviado na confirmação da compra.
-  Não disparar estes eventos a partir da landing, senão ficam contados em dobro.
-- Se um dia se adicionar outra ferramenta (Google Analytics, TikTok…), actualizar a
-  política em `build-legal.py` antes de publicar.
+```bash
+python3 build-wordpress.py
+```
+
+Gera `dist/mama-resuelve/` e `dist/mama-resuelve-wordpress.zip` (~3,4 MB) com as 7 páginas
+e só as 21 imagens que são mesmo usadas. Fica de fora tudo o que é do repositório: README,
+scripts de build, imagens originais e o standalone. O `robots.txt` também não vai — dentro
+de uma subpasta é ignorado, quem manda é o do domínio.
+
+O `dist/` está no `.gitignore`: é um resultado, não código.

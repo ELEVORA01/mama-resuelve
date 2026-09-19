@@ -12,3 +12,4 @@
 # Ficheiros temporários de trabalho
 _*.html
 *.tmp
+dist/
