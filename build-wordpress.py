@@ -46,12 +46,27 @@ if NOVO != ANTIGO:
     junto = "".join(io.open(os.path.join(DEST, n), encoding="utf-8").read() for n in PAGINAS)
     assert ANTIGO.rstrip("/") not in junto, "ficaram endereços antigos por trocar"
 
+# Os gestores de ficheiros dos alojamentos (cPanel, Hostinger) falham a extrair
+# zips sem entradas de pasta. O zip do sistema cria-as; o zipfile do Python não,
+# por isso em alternativa são escritas à mão.
 zip_path = os.path.join("dist", "mama-resuelve-wordpress.zip")
-with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
-    for raiz, _, ficheiros in os.walk(DEST):
-        for f in sorted(ficheiros):
-            caminho = os.path.join(raiz, f)
-            z.write(caminho, os.path.relpath(caminho, "dist"))
+if os.path.exists(zip_path):
+    os.remove(zip_path)
+if shutil.which("zip"):
+    import subprocess
+    subprocess.run(["zip", "-r", "-q", "-X", os.path.basename(zip_path), os.path.basename(DEST)],
+                   cwd="dist", check=True)
+    print("\nzip criado com o utilitário do sistema (inclui entradas de pasta)")
+else:
+    with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+        for raiz, _, ficheiros in os.walk(DEST):
+            entrada = os.path.relpath(raiz, "dist") + "/"
+            info = zipfile.ZipInfo(entrada)
+            info.external_attr = (0o40755 << 16) | 0x10
+            z.writestr(info, b"")
+            for f in sorted(ficheiros):
+                caminho = os.path.join(raiz, f)
+                z.write(caminho, os.path.relpath(caminho, "dist"))
 
 total = sum(os.path.getsize(os.path.join(r, f)) for r, _, fs in os.walk(DEST) for f in fs)
 print("\n%d páginas + %d imagens · %.1f MB · endereço: %s" % (len(PAGINAS), len(usadas), total / 1048576.0, NOVO))
