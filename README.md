@@ -107,8 +107,14 @@ python3 build-wordpress.py https://novo-dominio.com/caminho/
 ## Pacote para o alojamento
 
 ```bash
-python3 build-wordpress.py
+python3 build-wordpress.py            # com a pasta assets/
+python3 build-wordpress.py --plano    # tudo ao lado das páginas, sem subpastas
 ```
+
+O site ao vivo em elevora.online usa a versão **`--plano`**: o gestor de ficheiros da
+HostGator não extraía o zip, os ficheiros foram enviados à mão e as imagens ficaram todas
+ao lado das páginas. Por isso o `og:image` aponta para `/mama-resuelve/og-mama-resuelve.jpg`,
+sem `assets/`. O repositório e o GitHub Pages mantêm a pasta `assets/`.
 
 Gera `dist/mama-resuelve/` e `dist/mama-resuelve-wordpress.zip` (~3,4 MB) com as 7 páginas
 e só as 21 imagens que são mesmo usadas. Fica de fora tudo o que é do repositório: README,

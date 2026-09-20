@@ -10,6 +10,12 @@ o robots.txt é ignorado, quem manda é o do domínio.
 """
 import io, os, re, shutil, sys, zipfile
 
+# --plano: imagens todas ao lado das páginas, sem a pasta assets/. Serve para
+# alojamentos onde criar subpastas é complicado — foi o caso da HostGator.
+PLANO = "--plano" in sys.argv
+if PLANO:
+    sys.argv.remove("--plano")
+
 # endereço actualmente escrito nas páginas (o <link rel="canonical"> do index)
 ANTIGO = re.search(r'<link rel="canonical" href="([^"]+)"', io.open("index.html", encoding="utf-8").read()).group(1)
 NOVO = sys.argv[1] if len(sys.argv) > 1 else ANTIGO
@@ -18,6 +24,7 @@ if not NOVO.endswith("/"):
 
 PAGINAS = ["index.html", "politica-privacidad.html", "terminos-condiciones.html",
            "politica-reembolso.html", "404.html", "sitemap.xml", "site.webmanifest"]
+
 
 DEST = os.path.join("dist", "mama-resuelve")
 if os.path.exists(DEST):
@@ -29,6 +36,8 @@ for nome in PAGINAS:
     texto = io.open(nome, encoding="utf-8").read()
     texto, n = re.subn(re.escape(ANTIGO), NOVO, texto)
     trocas += n
+    if PLANO:
+        texto = texto.replace("assets/icons/", "").replace("assets/", "")
     io.open(os.path.join(DEST, nome), "w", encoding="utf-8").write(texto)
     print("  %-28s %d endereço(s) trocado(s)" % (nome, n))
 
@@ -36,11 +45,16 @@ for nome in PAGINAS:
 usadas = set()
 for nome in PAGINAS:
     texto = io.open(os.path.join(DEST, nome), encoding="utf-8").read()
-    usadas |= set(re.findall(r'assets/[\w./-]+\.(?:jpe?g|png)', texto))
+    padrao = r'[\w-]+\.(?:jpe?g|png)' if PLANO else r'assets/[\w./-]+\.(?:jpe?g|png)'
+    usadas |= set(re.findall(padrao, texto))
 for rel in sorted(usadas):
-    destino = os.path.join(DEST, rel)
-    os.makedirs(os.path.dirname(destino), exist_ok=True)
-    shutil.copy2(rel, destino)
+    if PLANO:
+        origem = next(c for c in ("assets/" + rel, "assets/icons/" + rel) if os.path.exists(c))
+        shutil.copy2(origem, os.path.join(DEST, rel))
+    else:
+        destino = os.path.join(DEST, rel)
+        os.makedirs(os.path.dirname(destino), exist_ok=True)
+        shutil.copy2(rel, destino)
 
 if NOVO != ANTIGO:
     junto = "".join(io.open(os.path.join(DEST, n), encoding="utf-8").read() for n in PAGINAS)
